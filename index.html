@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jitsi Meet Embed</title>
+    <script src="https://meet.jit.si/external_api.js"></script>
+    <style>
+      html, body, #jitsi-container {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="jitsi-container"></div>
+    <script>
+      const domain = "meet.jit.si";
+      const options = {
+        roomName: "YourCustomRoom123", // 任意のルーム名に変えてOK
+        width: "100%",
+        height: "100%",
+        parentNode: document.querySelector('#jitsi-container'),
+        configOverwrite: {
+          startWithAudioMuted: true,
+          startWithVideoMuted: false,
+          disableInviteFunctions: true,
+        },
+        interfaceConfigOverwrite: {
+          SHOW_JITSI_WATERMARK: false,
+          SHOW_WATERMARK_FOR_GUESTS: false,
+          TOOLBAR_BUTTONS: [
+            'microphone', 'camera', 'hangup', 'chat'
+          ],
+        },
+        userInfo: {
+          displayName: "Guest User"
+        }
+      };
+      const api = new JitsiMeetExternalAPI(domain, options);
+    </script>
+  </body>
+</html>
