@@ -1,57 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Jitsi Embed with Dynamic Room and Name</title>
+    <meta charset="utf-8" />
+    <title>Jitsi Fullscreen</title>
     <script src="https://meet.jit.si/external_api.js"></script>
     <style>
-      html, body, #jitsi-container {
-        height: 100%;
+      html, body {
         margin: 0;
         padding: 0;
-        background-color: black;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background: #000;
+      }
+      #meet {
+        height: 100%;
+        width: 100%;
       }
     </style>
   </head>
   <body>
-    <div id="jitsi-container"></div>
-
+    <div id="meet"></div>
     <script>
-      //  URLパラメータからroomとnameを取得
-      function getQueryParam(param) {
+      function getQueryParam(name) {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param) || "";
+        return urlParams.get(name);
       }
 
       const roomName = getQueryParam("room") || "DefaultRoom";
-      const displayName = getQueryParam("name") || "Guest";
+      const userName = getQueryParam("name") || "Guest";
 
       const domain = "meet.jit.si";
       const options = {
         roomName: roomName,
-        width: "100%",
-        height: "100%",
-        parentNode: document.querySelector('#jitsi-container'),
+        parentNode: document.querySelector('#meet'),
+        width: '100%',
+        height: '100%',
         userInfo: {
-          displayName: displayName
+          displayName: userName
         },
         configOverwrite: {
           startWithAudioMuted: false,
-          startWithVideoMuted: false
+          startWithVideoMuted: false,
         },
         interfaceConfigOverwrite: {
-          SHOW_JITSI_WATERMARK: false,
-          TOOLBAR_BUTTONS: [
-            'microphone', 'camera', 'chat', 'hangup'
-          ]
+          // オプションでUIの最適化も可能
         }
       };
 
       const api = new JitsiMeetExternalAPI(domain, options);
-
-      // ✅ 通話終了時の通知
-      api.addEventListener('readyToClose', () => {
-        window.location.href = "https://yourdomain.com/thankyou?status=ended";
-      });
     </script>
   </body>
 </html>
