@@ -51,7 +51,8 @@
       const api = new JitsiMeetExternalAPI(domain, options);
 
       api.addEventListener('readyToClose', () => {
-      window.location.href = "https://yourusername.github.io/jitsi-thunkable-app/close.html";
+        console.log("✅ readyToClose fired!");
+        window.location.href = "https://yourusername.github.io/jitsi-thunkable-app/close.html";
       });
 
     </script>
